@@ -7,7 +7,8 @@ import Image from 'next/image'
 import { authAPI } from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 import toast from 'react-hot-toast'
-import { Eye, EyeOff } from 'feather-icons-react'
+import Eye from 'feather-icons-react/build/IconComponents/Eye'
+import EyeOff from 'feather-icons-react/build/IconComponents/EyeOff'
 
 export default function RegisterPage() {
   const router = useRouter()

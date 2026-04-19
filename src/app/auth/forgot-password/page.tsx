@@ -1,14 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Mail } from 'feather-icons-react'
+import ArrowLeft from 'feather-icons-react/build/IconComponents/ArrowLeft'
+import Mail from 'feather-icons-react/build/IconComponents/Mail'
 import toast from 'react-hot-toast'
 
 export default function ForgotPasswordPage() {
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)

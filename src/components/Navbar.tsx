@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useAuthStore } from '@/store/authStore'
-import { Home, LogOut, Settings } from 'feather-icons-react'
+import Home from 'feather-icons-react/build/IconComponents/Home'
+import Settings from 'feather-icons-react/build/IconComponents/Settings'
 import WithdrawalTicker from '@/components/WithdrawalTicker'
 
 const navLinks = [
@@ -13,14 +14,8 @@ const navLinks = [
 ]
 
 export default function Navbar() {
-  const router = useRouter()
   const pathname = usePathname()
-  const { isAuthenticated, user, logout } = useAuthStore()
-
-  const handleLogout = () => {
-    logout()
-    router.push('/')
-  }
+  const { isAuthenticated } = useAuthStore()
 
   const isActive = (href: string) => {
     if (href === '/dashboard') {

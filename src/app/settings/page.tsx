@@ -1,15 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/authStore'
 import { authAPI } from '@/lib/api'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import toast from 'react-hot-toast'
-import { Eye, EyeOff } from 'feather-icons-react'
+import Eye from 'feather-icons-react/build/IconComponents/Eye'
+import EyeOff from 'feather-icons-react/build/IconComponents/EyeOff'
 
 export default function SettingsPage() {
-  const router = useRouter()
   const { user } = useAuthStore()
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -39,7 +38,7 @@ export default function SettingsPage() {
 
     try {
       setLoading(true)
-      const response = await authAPI.changePassword({
+      await authAPI.changePassword({
         current_password: currentPassword,
         new_password: newPassword,
         confirm_password: confirmPassword,

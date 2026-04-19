@@ -2,152 +2,210 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/authStore'
-import { ArrowRight } from 'feather-icons-react'
+import ArrowRight from 'feather-icons-react/build/IconComponents/ArrowRight'
+import Shield from 'feather-icons-react/build/IconComponents/Shield'
+import Zap from 'feather-icons-react/build/IconComponents/Zap'
+import TrendingUp from 'feather-icons-react/build/IconComponents/TrendingUp'
+import CryptoTicker from '@/components/CryptoTicker'
 
 export default function Page() {
-  const router = useRouter()
   const { isAuthenticated } = useAuthStore()
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Hero Section with Network Background */}
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 z-0 animate-network">
-          <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-            <defs>
-              <style>{`
-                .node { fill: #ffffff; opacity: 0.4; }
-                .line { stroke: #ffffff; stroke-width: 1; opacity: 0.15; }
-              `}</style>
-            </defs>
-            <rect width="1200" height="600" fill="#000000" />
-            
-            {/* Network Lines */}
-            <line x1="50" y1="100" x2="200" y2="150" className="line" />
-            <line x1="200" y1="150" x2="400" y2="100" className="line" />
-            <line x1="400" y1="100" x2="600" y2="200" className="line" />
-            <line x1="600" y1="200" x2="800" y2="120" className="line" />
-            <line x1="800" y1="120" x2="1000" y2="220" className="line" />
-            <line x1="1000" y1="220" x2="1150" y2="150" className="line" />
-            
-            <line x1="50" y1="100" x2="100" y2="300" className="line" />
-            <line x1="100" y1="300" x2="250" y2="400" className="line" />
-            <line x1="250" y1="400" x2="450" y2="350" className="line" />
-            <line x1="450" y1="350" x2="650" y2="450" className="line" />
-            <line x1="650" y1="450" x2="850" y2="400" className="line" />
-            <line x1="850" y1="400" x2="1050" y2="480" className="line" />
-            
-            <line x1="200" y1="150" x2="100" y2="300" className="line" />
-            <line x1="400" y1="100" x2="450" y2="350" className="line" />
-            <line x1="600" y1="200" x2="650" y2="450" className="line" />
-            <line x1="800" y1="120" x2="850" y2="400" className="line" />
-            
-            {/* Nodes */}
-            <circle cx="50" cy="100" r="4" className="node" />
-            <circle cx="200" cy="150" r="4" className="node" />
-            <circle cx="400" cy="100" r="4" className="node" />
-            <circle cx="600" cy="200" r="4" className="node" />
-            <circle cx="800" cy="120" r="4" className="node" />
-            <circle cx="1000" cy="220" r="4" className="node" />
-            <circle cx="1150" cy="150" r="4" className="node" />
-            
-            <circle cx="100" cy="300" r="4" className="node" />
-            <circle cx="250" cy="400" r="4" className="node" />
-            <circle cx="450" cy="350" r="4" className="node" />
-            <circle cx="650" cy="450" r="4" className="node" />
-            <circle cx="850" cy="400" r="4" className="node" />
-            <circle cx="1050" cy="480" r="4" className="node" />
-          </svg>
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Live Crypto Price Ticker */}
+      <div className="fixed top-0 left-0 right-0 z-50">
+        <CryptoTicker />
+      </div>
+
+      {/* Hero */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-10">
+        {/* Mesh background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 pointer-events-none"
+          style={{ backgroundImage: "url('/mesh-bg.webp')" }}
+        />
+        {/* Gradient overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30 pointer-events-none" />
+        {/* Accent glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/8 rounded-full blur-[120px] pointer-events-none" />
+
+        {/* Logo */}
+        <div className="relative z-10 mb-6 animate-fade-up">
+          <Image src="/logo.png" alt="Freshfield" width={250} height={250} className="mx-auto" priority />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 px-4 sm:px-6 lg:px-8 py-8 sm:py-16 lg:py-24">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:items-center">
-              {/* Right Side - Dashboard Preview (appears on left on desktop) */}
-              <div className="flex justify-center items-center lg:order-first">
-                <div className="relative w-full max-w-sm">
-                  <div className="rounded-2xl overflow-hidden shadow-2xl border border-accent/20">
-                    <Image
-                      src="/dashboard-preview.png"
-                      alt="Dashboard Preview"
-                      width={320}
-                      height={640}
-                      className="w-full h-auto"
-                      priority
-                    />
+        {/* Badge */}
+        <div className="relative z-10 mb-8 animate-fade-up delay-100">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/5 text-accent text-sm font-medium tracking-wide">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            Trusted by thousands of investors
+          </span>
+        </div>
+
+        {/* Heading */}
+        <h1 className="relative z-10 text-center max-w-4xl">
+          <span className="block text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight leading-[1.1] animate-fade-up delay-200">
+            Invest in Crypto
+          </span>
+          <span className="block text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight leading-[1.1] text-accent mt-2 animate-fade-up delay-300">
+            with Confidence
+          </span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="relative z-10 mt-6 text-center text-medium-gray text-lg sm:text-xl max-w-2xl leading-relaxed animate-fade-up delay-400">
+          Freshfield is your gateway to smarter crypto investing. Secure, transparent, and built for investors who demand more.
+        </p>
+
+        {/* CTA */}
+        <div className="relative z-10 mt-10 flex flex-col sm:flex-row gap-4 animate-fade-up delay-500">
+          <Link
+            href="/auth/register"
+            className="group flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-base font-semibold text-black hover:shadow-[0_0_30px_rgba(255,215,0,0.3)] transition-all duration-300"
+          >
+            Get Started
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link
+            href="/auth/login"
+            className="flex items-center justify-center gap-2 rounded-full border border-white/20 px-8 py-4 text-base font-semibold text-white hover:border-accent/50 hover:text-accent transition-all duration-300"
+          >
+            Sign In
+          </Link>
+        </div>
+
+        {/* Stats row */}
+        <div className="relative z-10 mt-20 flex flex-wrap justify-center gap-8 sm:gap-16 animate-fade-up delay-600">
+          <div className="text-center">
+            <p className="text-3xl sm:text-4xl font-bold text-accent">$2B+</p>
+            <p className="text-sm text-medium-gray mt-1">Assets Managed</p>
+          </div>
+          <div className="text-center">
+            <p className="text-3xl sm:text-4xl font-bold text-accent">50K+</p>
+            <p className="text-sm text-medium-gray mt-1">Active Users</p>
+          </div>
+          <div className="text-center">
+            <p className="text-3xl sm:text-4xl font-bold text-accent">99.9%</p>
+            <p className="text-sm text-medium-gray mt-1">Uptime</p>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-medium-gray/50 animate-fade-in delay-1000">
+          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-medium-gray/50 to-transparent" />
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="relative px-6 py-24 sm:py-32 overflow-hidden">
+        {/* Subtle accent glow */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left — Image */}
+            <div className="relative animate-fade-up">
+              <div className="relative rounded-2xl overflow-hidden border border-white/10">
+                <img
+                  src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80"
+                  alt="Cryptocurrency"
+                  className="w-full h-[400px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-accent text-sm font-semibold tracking-widest uppercase">Why Freshfield</p>
+                  <h2 className="text-3xl sm:text-4xl font-bold mt-2">
+                    Built for the modern investor
+                  </h2>
+                </div>
+              </div>
+              {/* Decorative accent border */}
+              <div className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border border-accent/20 -z-10" />
+            </div>
+
+            {/* Right — Feature Cards */}
+            <div className="space-y-5">
+              <div className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 hover:border-accent/30 hover:bg-accent/[0.03] transition-all duration-300 animate-scale-in delay-200">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                    <Shield size={22} className="text-accent" />
                   </div>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1">Bank-Grade Security</h3>
+                    <p className="text-medium-gray text-sm leading-relaxed">
+                      Your assets are protected with industry-leading encryption and multi-layer security protocols.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Left Side - Text (appears on right on desktop) */}
-              <div className="space-y-6 sm:space-y-8 lg:order-last">
-                <div className="space-y-3 sm:space-y-4">
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl heading-xl text-white font-bold leading-tight">
-                    Invest in Crypto with
-                    <span className="block text-accent">Confidence</span>
-                  </h1>
-                  <p className="text-base sm:text-lg text-medium-gray leading-relaxed">
-                    Simple, secure, and transparent cryptocurrency investment platform. Start your journey with zero complications.
-                  </p>
-                </div>
-
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="rounded-[16px] bg-black/40 p-4">
-                    <p className="text-accent font-bold text-2xl">24/7</p>
-                    <p className="text-sm text-white">Trading</p>
+              <div className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 hover:border-accent/30 hover:bg-accent/[0.03] transition-all duration-300 animate-scale-in delay-400">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                    <Zap size={22} className="text-accent" />
                   </div>
-                  <div className="rounded-[16px] bg-black/40 p-4">
-                    <p className="text-accent font-bold text-2xl">100%</p>
-                    <p className="text-sm text-white">Secure</p>
-                  </div>
-                  <div className="rounded-[16px] bg-black/40 p-4">
-                    <p className="text-accent font-bold text-2xl">0%</p>
-                    <p className="text-sm text-white">Fees*</p>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1">Instant Transactions</h3>
+                    <p className="text-medium-gray text-sm leading-relaxed">
+                      Deposit, invest, and withdraw in seconds. No delays, no waiting periods.
+                    </p>
                   </div>
                 </div>
+              </div>
 
-                {/* CTA Buttons */}
-                {!isAuthenticated ? (
-                  <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <Link
-                      href="/auth/register"
-                      className="rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-black hover:bg-yellow-400 transition-all text-center flex items-center justify-center gap-2"
-                    >
-                      <span>Get Started</span>
-                      <ArrowRight size={20} />
-                    </Link>
-                    <Link
-                      href="/auth/login"
-                      className="rounded-lg border border-accent/40 bg-accent/10 px-6 py-3 text-sm font-semibold text-accent hover:border-accent hover:bg-accent/20 transition-all text-center flex items-center justify-center gap-2"
-                    >
-                      <span>Sign In</span>
-                    </Link>
+              <div className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 hover:border-accent/30 hover:bg-accent/[0.03] transition-all duration-300 animate-scale-in delay-600">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                    <TrendingUp size={22} className="text-accent" />
                   </div>
-                ) : (
-                  <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <Link
-                      href="/dashboard"
-                      className="rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-black hover:bg-yellow-400 transition-all text-center flex items-center justify-center gap-2"
-                    >
-                      <span>Go to Dashboard</span>
-                      <ArrowRight size={20} />
-                    </Link>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1">Smart Returns</h3>
+                    <p className="text-medium-gray text-sm leading-relaxed">
+                      Earn competitive returns on your investments with our optimized portfolio strategies.
+                    </p>
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Accent Element */}
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full filter blur-3xl -z-0" />
-      </div>
+      {/* CTA Banner */}
+      <section className="px-6 py-24">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold">
+            Ready to start <span className="text-accent">investing</span>?
+          </h2>
+          <p className="text-medium-gray mt-4 text-lg">
+            Join thousands of investors already growing their wealth with Freshfield.
+          </p>
+          {!isAuthenticated && (
+            <Link
+              href="/auth/register"
+              className="inline-flex items-center justify-center gap-2 mt-8 rounded-full bg-accent px-10 py-4 text-base font-semibold text-black hover:shadow-[0_0_30px_rgba(255,215,0,0.3)] transition-all duration-300"
+            >
+              Create Free Account
+              <ArrowRight size={18} />
+            </Link>
+          )}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/10 px-6 py-8">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-medium-gray">&copy; 2026 Freshfield. All rights reserved.</p>
+          <div className="flex gap-6 text-sm text-medium-gray">
+            <span className="hover:text-white cursor-pointer transition-colors">Privacy</span>
+            <span className="hover:text-white cursor-pointer transition-colors">Terms</span>
+            <span className="hover:text-white cursor-pointer transition-colors">Support</span>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
