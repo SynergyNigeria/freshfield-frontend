@@ -66,7 +66,8 @@ export default function BtcCandlestickChart({
 
     async function loadCandles() {
       try {
-        const response = await fetch('http://localhost:8000/api/investment/market/btc/', { cache: 'no-store' })
+        const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
+        const response = await fetch(`${API_BASE}/investment/market/btc/`, { cache: 'no-store' })
 
         if (!response.ok) {
           throw new Error('Unable to load BTC candles.')
