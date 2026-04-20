@@ -6,7 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://freshfield-backend.onrender.com/api',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://freshfieldsinc.pythonanywhere.com/api',
   },
 }
 

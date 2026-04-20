@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useAuthStore } from '@/store/authStore'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://freshfield-backend.onrender.com/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://freshfieldsinc.pythonanywhere.com/api'
 
 const api = axios.create({
   baseURL: API_BASE_URL,
