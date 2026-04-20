@@ -66,7 +66,7 @@ export default function BtcCandlestickChart({
 
     async function loadCandles() {
       try {
-        const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
+        const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://freshfield-backend.onrender.com/api'
         const response = await fetch(`${API_BASE}/investment/market/btc/`, { cache: 'no-store' })
 
         if (!response.ok) {
