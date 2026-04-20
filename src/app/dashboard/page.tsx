@@ -1,12 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { useAuthStore } from '@/store/authStore'
+import { useEffect } from 'react'
 import { useWalletStore } from '@/store/walletStore'
 import { useInvestmentStore } from '@/store/investmentStore'
 import { walletAPI, investmentAPI } from '@/lib/api'
 import BtcCandlestickChart from '@/components/BtcCandlestickChart'
+import { useAuthInit } from '@/hooks/useAuthInit'
 
 function fmt(value: string | number | undefined) {
   const n = parseFloat(String(value ?? 0))
@@ -14,23 +13,18 @@ function fmt(value: string | number | undefined) {
 }
 
 export default function DashboardPage() {
-  const router = useRouter()
-  const { isAuthenticated } = useAuthStore()
+  const { isReady } = useAuthInit()
   const { wallet, setWallet } = useWalletStore()
   const { portfolio, setPortfolio } = useInvestmentStore()
-  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
-    if (!isAuthenticated) {
-      router.push('/auth/login')
-      return
+    if (isReady) {
+      walletAPI.getWallet().then(r => setWallet(r.data)).catch(() => {})
+      investmentAPI.getPortfolio().then(r => setPortfolio(r.data)).catch(() => {})
     }
-    walletAPI.getWallet().then(r => setWallet(r.data)).catch(() => {})
-    investmentAPI.getPortfolio().then(r => setPortfolio(r.data)).catch(() => {})
-  }, [isAuthenticated, router])
+  }, [isReady, setWallet, setPortfolio])
 
-  if (!mounted || !isAuthenticated) return null
+  if (!isReady) return null
 
   return (
     <div className="bg-black text-white h-screen md:min-h-screen overflow-hidden md:overflow-auto">

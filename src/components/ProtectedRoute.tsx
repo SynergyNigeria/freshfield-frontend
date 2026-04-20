@@ -6,17 +6,27 @@ import { useRouter } from 'next/navigation'
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const router = useRouter()
-  const { isAuthenticated } = useAuthStore()
+  const { isAuthenticated, isHydrated } = useAuthStore()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    if (!isAuthenticated) {
+  }, [])
+
+  useEffect(() => {
+    // Only redirect if store has hydrated and user is not authenticated
+    if (mounted && isHydrated && !isAuthenticated) {
       router.push('/auth/login')
     }
-  }, [isAuthenticated, router])
+  }, [isAuthenticated, isHydrated, mounted, router])
 
-  if (!mounted || !isAuthenticated) {
+  // Don't render anything until store is hydrated
+  if (!mounted || !isHydrated) {
+    return null
+  }
+
+  // If not authenticated, show nothing (will redirect in useEffect above)
+  if (!isAuthenticated) {
     return null
   }
 

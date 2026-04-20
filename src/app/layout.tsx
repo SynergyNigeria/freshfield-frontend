@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Navbar from '@/components/Navbar'
+import AppShell from '@/components/AppShell'
 import '../globals.css'
 import { Toaster } from 'react-hot-toast'
 
@@ -52,10 +52,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-black text-slate-900 antialiased">
-        <Navbar />
-        <main className="min-h-screen pb-24 md:pb-0">
-          {children}
-        </main>
+        <AppShell>{children}</AppShell>
         <Toaster position="top-right" />
       </body>
     </html>
