@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import type {
   CandlestickData,
   IChartApi,
@@ -191,6 +192,11 @@ export default function BtcCandlestickChart({
 
   return (
     <section className="rounded-none md:rounded-[20px] bg-black p-3 sm:p-6 flex flex-col h-full md:h-auto">
+      {/* Mobile-only logo header — keeps sidebar button from overlapping stats */}
+      <div className="flex items-center justify-center pb-4 pt-1 md:hidden">
+        <Image src="/logo.png" alt="Freshfield" width={140} height={44} className="h-auto" priority />
+      </div>
+
       <div className="flex flex-col gap-4 pb-5 sm:gap-5 sm:pb-6">
         <div className="grid grid-cols-3 gap-3">
           {statItems.map(({ label, value }) => (
