@@ -128,7 +128,7 @@ function MarketTrackerContent() {
       {/* BTC Chart */}
       <div>
         <h2 className="text-xl font-bold mb-4">BTC / USD Chart</h2>
-        <BtcCandlestickChart availableBalance="" portfolioValue="" totalInvested="" />
+        <BtcCandlestickChart />
       </div>
     </div>
   )

@@ -21,7 +21,6 @@ type CandlePoint = {
 }
 
 interface BtcCandlestickChartProps {
-  availableBalance?: string
   portfolioValue?: string
   totalInvested?: string
   withdrawalAmount?: string
@@ -48,7 +47,6 @@ function mapToChartCandle(candle: CandlePoint): CandlestickData<Time> {
 }
 
 export default function BtcCandlestickChart({
-  availableBalance = '$0.00',
   portfolioValue = '$0.00',
   totalInvested = '$0.00',
   withdrawalAmount = '$0.00',

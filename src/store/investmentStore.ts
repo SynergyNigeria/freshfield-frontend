@@ -15,6 +15,9 @@ interface Portfolio {
   total_invested: string
   total_profit: string
   portfolio_amount: string
+  withdrawal_amount: string
+  withdrawal_note: string
+  kyc_note: string
 }
 
 interface InvestmentStore {

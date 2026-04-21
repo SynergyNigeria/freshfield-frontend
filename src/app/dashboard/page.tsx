@@ -14,7 +14,7 @@ function fmt(value: string | number | undefined) {
 
 export default function DashboardPage() {
   const { isReady } = useAuthInit()
-  const { wallet, setWallet } = useWalletStore()
+  const { setWallet } = useWalletStore()
   const { portfolio, setPortfolio } = useInvestmentStore()
 
   useEffect(() => {
