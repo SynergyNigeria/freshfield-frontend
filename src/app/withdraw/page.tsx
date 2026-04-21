@@ -12,6 +12,7 @@ function WithdrawContent() {
   const { token } = useAuthStore()
   const [kycVerified, setKycVerified] = useState<boolean | null>(null)
   const [withdrawalNote, setWithdrawalNote] = useState('You are ineligible for withdrawal above $1000 at the moment')
+  const [adminWithdrawNote, setAdminWithdrawNote] = useState('You will be notified about this transaction soon.')
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
 
@@ -26,6 +27,7 @@ function WithdrawContent() {
       .then(([kyc, portfolio]) => {
         if (kyc) setKycVerified(kyc.kyc_verified)
         if (portfolio?.withdrawal_note) setWithdrawalNote(portfolio.withdrawal_note)
+        if (portfolio?.admin_withdraw_note) setAdminWithdrawNote(portfolio.admin_withdraw_note)
       })
       .catch(() => {})
       .finally(() => setLoading(false))
@@ -38,26 +40,11 @@ function WithdrawContent() {
 
     setSubmitting(true)
     try {
-      const res = await fetch(`${API}/wallet/withdrawal/`, {
-        method: 'POST',
-        headers: { Authorization: `Token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: parseFloat(amount),
-          method: 'WALLET',
-          wallet_type: 'BTC',
-          wallet_address: walletAddress.trim(),
-        }),
-      })
-      const data = await res.json()
-      if (res.ok || res.status === 201) {
-        toast.success('Withdrawal request submitted!')
-        setAmount('')
-        setWalletAddress('')
-      } else {
-        toast.error(data.message || data.error || JSON.stringify(data))
-      }
-    } catch { toast.error('Network error') }
-    finally { setSubmitting(false) }
+      // Withdrawals are currently held by admin and users are shown the admin note.
+      toast.error(adminWithdrawNote || 'This withdrawal is on hold. You will be notified about this transaction soon.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (loading) return (
