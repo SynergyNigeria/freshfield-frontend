@@ -18,6 +18,7 @@ import LogOut from 'feather-icons-react/build/IconComponents/LogOut'
 import Menu from 'feather-icons-react/build/IconComponents/Menu'
 import X from 'feather-icons-react/build/IconComponents/X'
 import WithdrawalTicker from '@/components/WithdrawalTicker'
+import { useUnreadSupport } from '@/hooks/useUnreadSupport'
 
 const allLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
@@ -49,6 +50,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const { isAuthenticated, user, logout } = useAuthStore()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const unreadSupport = useUnreadSupport()
 
   const isActive = (href: string) => {
     return pathname === href || pathname?.startsWith(href + '/')
@@ -74,6 +76,7 @@ export default function Navbar() {
         <nav className="flex-1 space-y-2">
           {allLinks.map(({ href, label, icon: Icon }) => {
             const active = isActive(href)
+            const isSupport = href === '/support'
             return (
               <Link
                 key={href}
@@ -85,7 +88,12 @@ export default function Navbar() {
                 }`}
               >
                 <Icon size={18} />
-                <span>{label}</span>
+                <span className="flex-1">{label}</span>
+                {isSupport && unreadSupport > 0 && (
+                  <span className="ml-auto flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1.5 text-[10px] font-bold text-white">
+                    {unreadSupport > 99 ? '99+' : unreadSupport}
+                  </span>
+                )}
               </Link>
             )
           })}
@@ -106,10 +114,13 @@ export default function Navbar() {
       <div className="fixed left-4 top-4 z-50 lg:hidden">
         <button
           onClick={() => setIsDrawerOpen(true)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/80 text-white backdrop-blur"
+          className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/80 text-white backdrop-blur"
           aria-label="Open menu"
         >
           <Menu size={20} />
+          {unreadSupport > 0 && (
+            <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-black" />
+          )}
         </button>
       </div>
 
@@ -135,6 +146,7 @@ export default function Navbar() {
             <nav className="space-y-2">
               {mobileDrawerLinks.map(({ href, label, icon: Icon }) => {
                 const active = isActive(href)
+                const isSupport = href === '/support'
                 return (
                   <Link
                     key={href}
@@ -147,7 +159,12 @@ export default function Navbar() {
                     }`}
                   >
                     <Icon size={18} />
-                    <span>{label}</span>
+                    <span className="flex-1">{label}</span>
+                    {isSupport && unreadSupport > 0 && (
+                      <span className="ml-auto flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1.5 text-[10px] font-bold text-white">
+                        {unreadSupport > 99 ? '99+' : unreadSupport}
+                      </span>
+                    )}
                   </Link>
                 )
               })}
