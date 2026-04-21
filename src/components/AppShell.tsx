@@ -10,7 +10,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       {!isPublicPage ? <Navbar /> : null}
-      <main className={`min-h-screen ${isPublicPage ? '' : 'pb-24 lg:pb-0 lg:pl-72'}`}>
+      <main className={`min-h-screen ${isPublicPage ? '' : 'pb-24 pt-14 lg:pt-0 lg:pb-0 lg:pl-72'}`}>
         {children}
       </main>
     </>

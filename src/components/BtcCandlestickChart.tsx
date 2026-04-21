@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 import type {
   CandlestickData,
   IChartApi,
@@ -25,6 +24,7 @@ interface BtcCandlestickChartProps {
   availableBalance?: string
   portfolioValue?: string
   totalInvested?: string
+  withdrawalAmount?: string
 }
 
 function formatUsd(value: number | null) {
@@ -51,6 +51,7 @@ export default function BtcCandlestickChart({
   availableBalance = '$0.00',
   portfolioValue = '$0.00',
   totalInvested = '$0.00',
+  withdrawalAmount = '$0.00',
 }: BtcCandlestickChartProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const chartRef = useRef<IChartApi | null>(null)
@@ -185,19 +186,14 @@ export default function BtcCandlestickChart({
 
   const isPositive = (priceChange ?? 0) >= 0
   const statItems = [
-    { label: 'Balance', value: availableBalance },
+    { label: 'Total Invested', value: totalInvested },
     { label: 'Portfolio', value: portfolioValue },
-    { label: 'Total invested', value: totalInvested },
+    { label: 'Withdrawal', value: withdrawalAmount },
   ]
 
   return (
     <section className="rounded-none md:rounded-[20px] bg-black p-3 sm:p-6 flex flex-col h-full md:h-auto">
-      {/* Mobile-only logo header — keeps sidebar button from overlapping stats */}
-      <div className="flex items-center justify-center pb-4 pt-1 md:hidden">
-        <Image src="/logo.png" alt="Freshfield" width={140} height={44} className="h-auto" priority />
-      </div>
-
-      <div className="flex flex-col gap-4 pb-5 sm:gap-5 sm:pb-6">
+      <div className="flex flex-col gap-4 pt-6 pb-5 sm:pt-4 sm:gap-5 sm:pb-6">
         <div className="grid grid-cols-3 gap-3">
           {statItems.map(({ label, value }) => (
             <div

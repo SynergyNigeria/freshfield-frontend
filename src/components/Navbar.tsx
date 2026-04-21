@@ -111,10 +111,11 @@ export default function Navbar() {
         </div>
       </aside>
 
-      <div className="fixed left-4 top-4 z-50 lg:hidden">
+      {/* Mobile sticky header bar */}
+      <header className="fixed top-0 inset-x-0 z-50 flex h-14 items-center border-b border-white/10 bg-black/90 px-4 backdrop-blur lg:hidden">
         <button
           onClick={() => setIsDrawerOpen(true)}
-          className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/80 text-white backdrop-blur"
+          className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white"
           aria-label="Open menu"
         >
           <Menu size={20} />
@@ -122,7 +123,10 @@ export default function Navbar() {
             <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-black" />
           )}
         </button>
-      </div>
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <Image src="/logo.png" alt="Freshfield" width={120} height={38} className="h-auto" priority />
+        </div>
+      </header>
 
       {isDrawerOpen ? (
         <>

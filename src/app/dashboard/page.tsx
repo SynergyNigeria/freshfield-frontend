@@ -30,9 +30,9 @@ export default function DashboardPage() {
     <div className="bg-black text-white h-screen md:min-h-screen overflow-hidden md:overflow-auto">
       <div className="h-full md:h-auto mx-auto max-w-7xl px-0 py-0 md:px-6 md:py-6 lg:px-8 lg:py-6 flex flex-col md:block">
         <BtcCandlestickChart
-          availableBalance={fmt(wallet?.balance)}
-          portfolioValue={fmt(portfolio?.portfolio_amount)}
           totalInvested={fmt(portfolio?.total_invested)}
+          portfolioValue={fmt(portfolio?.portfolio_amount)}
+          withdrawalAmount={fmt(portfolio?.withdrawal_amount)}
         />
       </div>
     </div>

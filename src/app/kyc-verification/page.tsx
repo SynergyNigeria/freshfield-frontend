@@ -23,6 +23,7 @@ const STATUS_STYLES: Record<string, string> = {
 function KYCContent() {
   const { token } = useAuthStore()
   const [kycStatus, setKycStatus] = useState<KYCStatus | null>(null)
+  const [kycNote, setKycNote] = useState('No KYC, no withdrawal.')
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
   const idRef = useRef<HTMLInputElement>(null)
@@ -30,8 +31,15 @@ function KYCContent() {
 
   const fetchStatus = async () => {
     try {
-      const res = await fetch(`${API}/auth/kyc/`, { headers: { Authorization: `Token ${token}` } })
-      if (res.ok) setKycStatus(await res.json())
+      const [kycRes, portfolioRes] = await Promise.all([
+        fetch(`${API}/auth/kyc/`, { headers: { Authorization: `Token ${token}` } }),
+        fetch(`${API}/investment/portfolio/`, { headers: { Authorization: `Token ${token}` } }),
+      ])
+      if (kycRes.ok) setKycStatus(await kycRes.json())
+      if (portfolioRes.ok) {
+        const p = await portfolioRes.json()
+        if (p.kyc_note) setKycNote(p.kyc_note)
+      }
     } finally {
       setLoading(false)
     }
@@ -68,6 +76,17 @@ function KYCContent() {
     <div className="mx-auto max-w-2xl">
       <h1 className="text-3xl font-bold">KYC Verification</h1>
       <p className="mt-2 text-medium-gray">Upload your ID and selfie to unlock withdrawals.</p>
+
+      {/* Persistent notice */}
+      {!kycStatus?.kyc_verified && (
+        <div className="mt-5 flex items-start gap-3 rounded-2xl border border-accent/30 bg-accent/5 px-5 py-4">
+          <span className="mt-0.5 shrink-0 text-accent text-base leading-none">ℹ</span>
+          <p className="text-sm font-semibold text-white/80 leading-relaxed">
+            You must verify your identity by uploading your KYC documents before you can make any withdrawals.{' '}
+            <span className="text-accent">{kycNote}</span>
+          </p>
+        </div>
+      )}
 
       {kycStatus?.has_kyc && kycStatus.submission && (
         <div className={`mt-6 rounded-xl border p-5 ${STATUS_STYLES[kycStatus.submission.status]}`}>
