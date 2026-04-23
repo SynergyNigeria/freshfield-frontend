@@ -55,26 +55,35 @@ function TransactionHistoryContent() {
         </div>
       ) : (
         <div className="mt-8 space-y-3">
-          {transactions.map(tx => (
+          {transactions.map(tx => {
+            const status = String(tx.status || '').toUpperCase()
+            const type = String(tx.transaction_type || '').toUpperCase()
+            const isFailed = status === 'FAILED'
+            const isPositiveType = ['DEPOSIT', 'SELL'].includes(type)
+            const amountText = `${isFailed ? '' : (isPositiveType ? '+' : '-')}$${parseFloat(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}`
+            const amountClass = isFailed ? 'text-medium-gray' : (isPositiveType ? 'text-green-400' : 'text-red-400')
+
+            return (
             <div key={tx.id} className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1">
-                    <span className={`text-xs font-bold uppercase ${tx.status === 'FAILED' ? 'text-red-400' : (TYPE_STYLES[tx.transaction_type] ?? 'text-white')}`}>{tx.transaction_type}</span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${STATUS_BADGE[tx.status] ?? ''}`}>{tx.status}</span>
+                    <span className={`text-xs font-bold uppercase ${isFailed ? 'text-medium-gray' : (TYPE_STYLES[type] ?? 'text-white')}`}>{type}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${STATUS_BADGE[status] ?? ''}`}>{status}</span>
                   </div>
                   <p className="text-sm text-medium-gray truncate">{tx.description || '—'}</p>
                   <p className="text-xs text-white/30 mt-1">{new Date(tx.created_at).toLocaleString()}</p>
                   <p className="text-xs text-white/20 mt-1 truncate">ID: {tx.transaction_id}</p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className={`text-lg font-bold ${tx.status === 'FAILED' ? 'text-red-400' : (['DEPOSIT','SELL'].includes(tx.transaction_type) ? 'text-green-400' : 'text-red-400')}`}>
-                    {['DEPOSIT','SELL'].includes(tx.transaction_type) ? '+' : '-'}${parseFloat(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                  <p className={`text-lg font-bold ${amountClass}`}>
+                    {amountText}
                   </p>
                 </div>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       )}
     </div>
