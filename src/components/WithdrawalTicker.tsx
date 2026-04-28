@@ -37,9 +37,14 @@ export default function WithdrawalTicker() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
+    function getNextDelayMs() {
+      // Target roughly 1-5 notifications per minute.
+      // Since each notification stays visible for 6s, wait 6s-54s before showing next.
+      return 6_000 + Math.floor(Math.random() * 48_000)
+    }
+
     function schedule() {
-      // 60 seconds + 0-29 random extra seconds
-      const delay = 60_000 + Math.floor(Math.random() * 30_000)
+      const delay = getNextDelayMs()
       timerRef.current = setTimeout(show, delay)
     }
 
@@ -67,12 +72,12 @@ export default function WithdrawalTicker() {
         visible ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'
       }`}
     >
-      <div className="flex items-center justify-center gap-2.5 border-b border-white/5 bg-white/[0.03] py-2 px-4 text-sm">
+      <div className="flex items-center justify-center gap-2.5 border-b border-emerald-400/30 bg-emerald-400/10 py-2 px-4 text-sm">
         <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-400 animate-pulse" />
-        <span className="text-slate-300">
-          <span className="font-semibold text-white">{msg?.name}</span>
+        <span className="text-emerald-100">
+          <span className="font-semibold text-emerald-300">{msg?.name}</span>
           {' '}just withdrew{' '}
-          <span className="font-semibold text-accent">{msg?.amount}</span>
+          <span className="font-semibold text-emerald-400">{msg?.amount}</span>
         </span>
       </div>
     </div>
