@@ -175,6 +175,13 @@ export default function LoginPage() {
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
 
+            <Link
+              href="/auth/migrating"
+              className="w-full bg-transparent text-accent border border-accent/40 rounded-lg px-6 py-3 font-semibold text-center transition-all hover:bg-accent/10 hover:border-accent block"
+            >
+              Migrating?
+            </Link>
+
 
           </form>
 

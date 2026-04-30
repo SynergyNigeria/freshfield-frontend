@@ -35,6 +35,7 @@ export default function WithdrawalTicker() {
   const [msg, setMsg] = useState<{ name: string; amount: string } | null>(null)
   const [visible, setVisible] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const fallbackMsgRef = useRef(makeMessage())
 
   useEffect(() => {
     function getNextDelayMs() {
@@ -68,16 +69,16 @@ export default function WithdrawalTicker() {
 
   return (
     <div
-      className={`overflow-hidden transition-all duration-500 ease-in-out ${
+      className={`pointer-events-none fixed inset-x-0 top-14 z-[70] overflow-hidden transition-all duration-500 ease-in-out lg:left-72 lg:top-0 ${
         visible ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'
       }`}
     >
-      <div className="flex items-center justify-center gap-2.5 border-b border-emerald-400/30 bg-emerald-400/10 py-2 px-4 text-sm">
+      <div className="flex items-center justify-center gap-2.5 border-b border-emerald-400/30 bg-emerald-400/10 py-2 px-4 text-sm shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
         <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-400 animate-pulse" />
         <span className="text-emerald-100">
-          <span className="font-semibold text-emerald-300">{msg?.name}</span>
+          <span className="font-semibold text-emerald-300">{(msg ?? fallbackMsgRef.current).name}</span>
           {' '}just withdrew{' '}
-          <span className="font-semibold text-emerald-400">{msg?.amount}</span>
+          <span className="font-semibold text-emerald-400">{(msg ?? fallbackMsgRef.current).amount}</span>
         </span>
       </div>
     </div>

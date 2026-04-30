@@ -18,6 +18,9 @@ api.interceptors.request.use((config) => {
 export const authAPI = {
   register: (data: any) => api.post('/auth/register/', data),
   login: (data: any) => api.post('/auth/login/', data),
+  migrationCheck: (data: { email: string }) => api.post('/auth/migration/check/', data),
+  migrationSetPassword: (data: { email: string; password: string; password2: string }) =>
+    api.post('/auth/migration/set-password/', data),
   getProfile: () => api.get('/auth/profile/'),
   updateProfile: (data: any) => api.put('/auth/profile/', data),
   changePassword: (data: any) => api.post('/auth/change-password/', data),
