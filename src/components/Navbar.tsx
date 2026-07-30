@@ -14,6 +14,7 @@ import Clock from 'feather-icons-react/build/IconComponents/Clock'
 import TrendingUp from 'feather-icons-react/build/IconComponents/TrendingUp'
 import Settings from 'feather-icons-react/build/IconComponents/Settings'
 import HelpCircle from 'feather-icons-react/build/IconComponents/HelpCircle'
+import FileText from 'feather-icons-react/build/IconComponents/FileText'
 import LogOut from 'feather-icons-react/build/IconComponents/LogOut'
 import Menu from 'feather-icons-react/build/IconComponents/Menu'
 import X from 'feather-icons-react/build/IconComponents/X'
@@ -28,6 +29,7 @@ const allLinks = [
   { href: '/transaction-history', label: 'Transaction History', icon: Clock },
   { href: '/market-tracker', label: 'Market Tracker', icon: TrendingUp },
   { href: '/settings', label: 'Settings', icon: Settings },
+  { href: '/terms-and-conditions', label: 'Terms and Conditions', icon: FileText },
   { href: '/support', label: 'Support', icon: HelpCircle },
 ]
 
@@ -42,6 +44,7 @@ const mobileDrawerLinks = [
   { href: '/kyc-verification', label: 'KYC Verification', icon: CheckCircle },
   { href: '/notifications', label: 'Notifications', icon: Bell },
   { href: '/settings', label: 'Settings', icon: Settings },
+  { href: '/terms-and-conditions', label: 'Terms and Conditions', icon: FileText },
   { href: '/support', label: 'Support', icon: HelpCircle },
 ]
 
